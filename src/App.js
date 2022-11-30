@@ -20,7 +20,7 @@ function App() {
  const [bgImage, setBgImage] = useState(Clear); //dynamic bg image based on weather
 
  //API URL for converting city name to geo-coordinates
-const url=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&&appid=b5241f214761c26348909ac9b8ee53d0`
+const url=`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&&appid=b5241f214761c26348909ac9b8ee53d0`
 
 const getCoordinates = (e) =>{
   if(e.key==='Enter'){
