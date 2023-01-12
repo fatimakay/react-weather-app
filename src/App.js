@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 function App() {
  const [data, setData] = useState({}); //to store weather data
  const [location, setLocation] = useState(''); //to store user's input in search
- const [bgImage, setBgImage] = useState(Clear); //dynamic bg image based on weather
+ const [bgImage, setBgImage] = useState("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"); //dynamic bg image based on weather
 
  //API URL for converting city name to geo-coordinates
 const url=`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&&appid=b5241f214761c26348909ac9b8ee53d0`
