@@ -28,6 +28,7 @@ const getCoordinates = (e) =>{
     .then((response) => {
       //use coordinates to get weather info
       getWeatherData(response.data[0].lat, response.data[0].lon); 
+      getForecast(response.data[0].lat, response.data[0].lon);
       // console.log(response.data[0].lat, response.data[0].lon);
       // setData(response.data)
       // console.log(response.data);
@@ -43,30 +44,36 @@ const getWeatherData = (lat, lon) => {
     setData(response.data);
     console.log(response.data);
   })
-
+}
+const getForecast = (lat, lon) => {
+    //get 5 day data 
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=b5241f214761c26348909ac9b8ee53d0`)
+  .then((response) => {
+    console.log('5day', response.data); 
+  })
 }
 useEffect(() => {
   //change bg based on current weather condition
   if(data.weather) {
     if(data.weather[0].main === "Clouds"){
-         setBgImage(Clouds);
-    }else if(data.weather[0].main==="Rain" || data.weather[0].main==="Drizzle"){
-      setBgImage(Rain); 
+      setBgImage("https://images.pexels.com/photos/209831/pexels-photo-209831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+      }else if(data.weather[0].main==="Rain" || data.weather[0].main==="Drizzle"){
+      setBgImage("https://images.unsplash.com/photo-1433863448220-78aaa064ff47?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80"); 
     }else if(data.weather[0].main==="Thunderstorm" || data.weather[0].main==="Squall"){
-      setBgImage(Thunderstorm); 
+      setBgImage("https://images.pexels.com/photos/1162251/pexels-photo-1162251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
     }else if(data.weather[0].main==="Clear"){
-      setBgImage(Clear);
+      setBgImage("https://images.unsplash.com/photo-1656762118188-b01ac10fb16f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1934&q=80"); 
     }else if(data.weather[0].main==="Haze" || data.weather[0].main==="Smoke" 
     || data.weather[0].main==="Mist" || data.weather[0].main==="Fog" ){
-      setBgImage(Haze);
+      setBgImage("https://images.unsplash.com/photo-1490780960365-b5e36e1d824c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"); 
     }
     else if(data.weather[0].main==="Snow"){
-      setBgImage(Snow);
+      setBgImage('https://images.unsplash.com/photo-1518873890627-d4b177c06e51?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80');
     } else if(data.weather[0].main==="Dust" || data.weather[0].main==="Sand"){
-      setBgImage(Dust);
+      setBgImage("https://images.wallpaperscraft.com/image/single/desert_dunes_sand_198958_1920x1080.jpg"); 
     }
     else{ 
-       setBgImage(Clear);
+      setBgImage("https://images.unsplash.com/photo-1656762118188-b01ac10fb16f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1934&q=80"); 
     }
  }
 });
@@ -118,8 +125,7 @@ return (
     <>
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-    <div className="App" style={{ background: `url(${(bgImage)}) no-repeat center center/cover` }}>
-  
+    <div className="App" style={{ background: `url(${(bgImage)}) no-repeat center  center/cover` }}>
      <Box className="container"
      maxWidth='sm'
      alignItems='center'
@@ -192,6 +198,7 @@ endAdornment={
       }
      
      </Box>
+     
     </div>
     </ThemeProvider>
     </>
